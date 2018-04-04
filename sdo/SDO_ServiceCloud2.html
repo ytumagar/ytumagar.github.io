@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Language" content="jp"/>
+<title>form</title>
+</head>
+
+
+
+
+<body>
+
+
+<script type='text/javascript'>
+<!--
+function checkData(){
+	showValErrors();
+	fillData();
+}
+
+// VAL E INC: null
+function showValErrors(){
+	var fm = document.forms['signup_form'];
+	 try{
+	}catch(e){
+		 alert('show val e: ' + e);
+	}
+}
+function fillData(){
+	var fm = document.forms['signup_form'];
+		 try{
+		}catch(e){
+			 alert(e);
+	}
+}
+//-->
+</script>
+
+
+<script type="text/javascript" language="JavaScript">
+<!--
+		var fm;	
+		var formname_ele;	
+
+	function isValidPhoneNumber(num, requiredDigits) {
+	    var digits = 0;
+	    if (num == null) return false;
+	    for( i=0; i<num.length; i++ ){
+	        var c = num.charCodeAt(i);  
+	        if( (c>=48) && (c<=57) ) digits++;
+	    }    
+	    return (digits >= requiredDigits);
+	}
+	function isValidEmail(emailad) {
+	   var exclude=/[^@\-\.\w\'\+]|^[_@\.\-]|[\._\-]{2}|[@\.]{2}|(@)[^@]*\1/;
+	   var check=/@[\w\-]+\./;
+	   var checkend=/\.[a-zA-Z]{2,4}$/;
+	   return (((emailad.length > 80) || (emailad.search(exclude) != -1)||(emailad.search(check)) == -1)||(emailad.search(checkend) == -1))?false:true;
+	}
+	
+	
+	function setUsername()
+	{
+		document.forms[0].UserUsername.value = "" + document.forms[0].UserEmail.value;
+	}
+
+	
+	function validate() {
+	    var ArErrMsg= new Array();
+	    var err_msg = new String();
+	    try{		
+			//update username for uniqueness
+			setUsername();
+
+			//check long
+
+		    if((fm.elements['UserLastName']) && (fm.elements['UserLastName'].value.length < 1)){
+			    ArErrMsg['UserLastName']="姓を入力してください";
+		    }
+			
+		    if((fm.elements['UserFirstName']) && (fm.elements['UserFirstName'].value.length < 1)){
+			    ArErrMsg['UserFirstName']="名を入力してください";
+		    }		    
+
+ 	    	    if (!isValidPhoneNumber(fm.elements['UserPhone'].value, 10)) { ArErrMsg['UserPhone']="有効な電話番号を入力してください";}
+	    	    if (!isValidEmail(fm.elements['UserEmail'].value)) { ArErrMsg['UserEmail']="有効なメールアドレスを入力してください";}
+
+		    if((fm.elements['CompanyName']) && (fm.elements['CompanyName'].value.length < 1)){
+			    ArErrMsg['CompanyName']="会社名を入力してください";
+		    }
+
+		    if((fm.elements['UserTitle']) && (fm.elements['UserTitle'].value.length < 1)){
+			    ArErrMsg['UserTitle']="役職を入力してください";
+		    }
+
+
+ 	    	if (fm.elements['CompanyEmployees'].selectedIndex < 1) {ArErrMsg['CompanyEmployees']="従業員数をお選びください";}
+	
+	    	
+			
+			if ((fm.process_form.value != false) && (fm.SubscriptionAgreement.checked != true)){
+				ArErrMsg['SubscriptionAgreement']="「利用規約」をご確認の上、同意のチェックをお願いします";			
+		    }
+			
+			
+		    var fd_i=0;
+		    for(var fd_n in ArErrMsg){
+		    	err_msg = new String(err_msg.concat("\n" + ArErrMsg[fd_n]));
+		    	fd_i++;
+		    }
+			
+			
+		    if(fd_i>0){
+		    	alert(err_msg);
+		    	return false;
+		    }
+		    var oCheckbox = document.getElementById('optInCheckbox');
+			
+	    	var oHidden = document.getElementById('Lead.InfoEmail__c');
+			
+			if(oCheckbox!=null){
+		   		oHidden.value=oCheckbox.checked;
+			}
+			
+			
+			//if(typeof(fm.elements['optInCheckbox']) != 'undefined')){
+			
+			//}
+		
+		
+	    }catch(e){
+	    	alert("E: " + e.description);
+	    	return false;
+	    }      
+		
+		return true;
+		
+    }
+    
+	
+
+	
+    //-->	
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		  
+<div> 
+		
+          <form action="https://www.salesforce.com/leadcapture/PartnerSignupServlet" method="post" name="signup_form" onSubmit='return validate()'>
+
+			<!-- TODO: Add Signup Config Item Name of Config record as formName -->
+			<input type="hidden" name="formName" value="JP_SDO_ServiceCloud2">
+			
+			<!-- TODO: Add Partnership Record Id for Partner Lookup on Lead -->
+			<input type="hidden" name="Lead.Partnership__c" value="a0x30000000DWFK" />  
+						
+			<!-- TODO: can be used with the javascript above to set the username: -->
+			<INPUT type="hidden" name="UserUsername" value="">
+
+			<!-- TODO: Update Success and Failure Page -->
+			<input type="hidden" name="successPage" value='https://login.salesforce.com/?locale=jp' />
+			<input type="hidden" name="failPage" value='http://www.yahoo.co.jp' />
+			
+			<input type="hidden" name="resultWebApp" value="/ROOT" />
+			<input type="hidden" name="process_form" value="true" />
+
+            <!-- check form types -->
+	    <input type="hidden" id="CompanyCountry" name="CompanyCountry" value="JP" />
+	    <input type="hidden" id="CompanyLanguage" name="CompanyLanguage" value="ja" />
+		
+            <input name="LeadSource" value="Trialforce - OEM" type="hidden">
+
+              <h5>下記フォームに必要事項をご記入ください</h5>
+
+
+            <table>
+        <tr> 
+		<td>
+		<label for='UserLastName' id='UserLastName_lbl'>姓:<span class="red">*</span></label></td>
+        <td><input type='text' NAME="UserLastName" id="UserLastName" MAXLENGTH="255" class="std" value="sfdcj_demo" /></td>
+		</tr>
+		
+		
+		<tr>
+        <td><label for='UserFirstName' id='UserFirstName_lbl'>名:<span class="red">*</span></label></td>
+		<td><input type='text' NAME="UserFirstName" id="UserFirstName" MAXLENGTH="255" class="std" value="sfdcj_demo" /></td>
+        </tr>
+		
+		
+		
+        <tr> 
+        <td><label for='UserPhone' id='UserPhone_lbl'>電話番号:<span class="red">*</span></label></td>
+        <td><input type='text' NAME="UserPhone" id="UserPhone" MAXLENGTH="255" class="std" value="00-0000-0000"/></td>
+		</tr>
+		
+		
+		
+		<tr>
+        <td><label for='UserEmail' id='UserEmail_lbl'>電子メール:<span class="red">*</span></label></td>
+        <td><input type='text' NAME="UserEmail"  id="UserEmail" MAXLENGTH="255" class="std"/></td>
+		</tr>
+        
+		
+		
+		<tr> 
+        <td><label for='CompanyName' id='CompanyName_lbl'>会社名:<span class="red">*</span></label></td>
+        <td><input type='text' NAME="CompanyName" id="CompanyName" MAXLENGTH="255" class="std" value="sfdcj_demo" /></td>
+        
+		
+		
+		<tr>
+		<td><label for='UserTitle' id='UserTitle_lbl'>役職:<span class="red">*</span></label></td>
+        <td><input type='text' NAME="UserTitle" id="UserTitle" MAXLENGTH="255" class="std" value="sfdcj_demo" /></td>
+        </tr>
+
+        <tr> 
+        <td><label for='CompanyEmployees' id='CompanyEmployees_lbl'>従業員数:<span class="red">*</span></label></td>
+        <td>
+                    <select NAME='CompanyEmployees' id='CompanyEmployees' class='std'>
+                    <option value=''>-- 条件を選択 --</OPTION>
+                    <option value='5'>8名以下</option>
+                    <option value='15'>8 - 20 名</option>
+                    <option value='60'selected="true">21 - 100 名</option>
+                    <option value='150'>101 - 200 名</option>
+                    <option value='300'>201 - 400 名</option>
+                    <option value='450'>401 - 500 名</option>
+                    <option value='625'>501 - 750 名</option>
+                    <option value='875'>751 - 1,000 名</option>
+                    <option value='1500'>1,000 - 2,000 名</option>
+                    <option value='5000'>2,000名以上</option>
+                  </select> 
+		</td>
+		</tr>
+		
+		
+		<tr>
+		<td colspan="2"><p><span class="red">*</span> 必須のフィールド</p></td>
+        </tr>
+
+        </table>
+
+				
+            <!--  is_vertical -->
+			
+            <table>
+			
+              <tr> 
+                <td colspan="2" class="fullspan"> <span class="red">*</span>
+                  <input type='checkbox' name='SubscriptionAgreement' id='SubscriptionAgreement' />
+				  <label for="SubscriptionAgreement" id="SubscriptionAgreement_lbl">
+
+                  <a href='http://www.salesforce.com/jp/company/msa.jsp'>利用規約</a>をご確認の上、同意される場合にはチェックをお願い致します。<br />
+
+
+</label>
+</td>
+              </tr>
+			  
+              <tr> 
+                <td><input type='submit' value='送信' /></td>
+              </tr>
+            </table>
+          </form>
+		  
+		  
+        </div>
+
+
+<script type="text/javascript">
+<!--//
+	if(document.forms['signup_form']){
+		fm=document.forms['signup_form'];
+		formname_ele = fm.elements['formName'];
+	}
+	checkData();
+//-->
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,8 +1,8 @@
 var data = [
-  [
-    -10,
-    "Honolulu",
-    "HST UTC-10",
+ [
+    9,
+    "Tokyo",
+    "JST UTC+9",
     true
   ],
   [

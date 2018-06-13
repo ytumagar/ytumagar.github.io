@@ -10,5 +10,12 @@ var data = [
     "San Francisco",
     "PDT UTC-7",
     true
+  ],
+  [
+    1,
+    "UK",
+    "BST UTC+1",
+    true
   ]
+
 ];

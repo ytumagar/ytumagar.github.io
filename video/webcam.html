@@ -204,11 +204,8 @@
     },
     video: { 
      deviceId: deviceId,
-     minWidth: 1280,
-     minHeight: 720,
-     maxWidth: 1280,
-     maxHeight: 720,
-     aspectRatio: {exact:1.7777777778}
+     width: { ideal : 1280 },
+     height: { ideal : 720 }
     }
   };
   console.log('mediaDevice.getMedia() constraints:', constraints);
